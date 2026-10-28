@@ -10,7 +10,7 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-  // ---------- Botón del formulario ----------
+  // Botón del formulario
   const rsvp = $('#rsvp');
   if (FORM_URL) {
     rsvp.href = FORM_URL;
@@ -20,7 +20,7 @@
     $('#rsvp-note').hidden = false;
   }
 
-  // ---------- Cuenta atrás ----------
+  // Cuenta atrás
   const pad = n => String(n).padStart(2, '0');
   function tick() {
     const diff = BODA - Date.now();
@@ -40,8 +40,13 @@
   tick();
   setInterval(tick, 1000);
 
-  // ---------- Aparición al hacer scroll ----------
-  // El horario aparece siempre en orden, del más temprano al más tardío.
+  // Barra de navegación
+  const nav = $('#nav');
+  const onScroll = () => nav.classList.toggle('scrolled', scrollY > 10);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Aparición al hacer scroll. El horario aparece siempre en orden, del más temprano al más tardío.
   const tlItems = $$('.tl li');
   const tlReady = new Set();
   let tlNext = 0;
@@ -55,10 +60,9 @@
     }
   }
 
-  let io = null;
-  let tio = null;
+  const items = $$('.reveal');
   if ('IntersectionObserver' in window && !reduce) {
-    io = new IntersectionObserver(entries => {
+    const io = new IntersectionObserver(entries => {
       entries
         .filter(e => e.isIntersecting)
         .sort((a, b) => a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1)
@@ -68,97 +72,16 @@
           io.unobserve(e.target);
         });
     }, { threshold: 0.12 });
-    tio = new IntersectionObserver(entries => {
+    const tio = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) { tlReady.add(e.target); tio.unobserve(e.target); }
       });
       tlFlush();
     }, { threshold: 0.3 });
-    $$('.reveal').forEach(n => io.observe(n));
+    items.forEach(n => io.observe(n));
     tlItems.forEach(n => tio.observe(n));
   } else {
-    $$('.reveal').forEach(n => n.classList.add('in'));
+    items.forEach(n => n.classList.add('in'));
     tlItems.forEach(n => n.classList.add('in'));
   }
-
-  // ---------- Secciones ----------
-  const VIEWS = ['inicio', 'celebracion', 'horario', 'autobus', 'alojamiento'];
-  const top = $('#top');
-  let current = null;
-
-  function routeFromHash() {
-    const h = location.hash.replace(/^#\/?/, '');
-    if (h === 'confirmar') return { view: 'inicio', target: '#rsvp-block' };
-    return { view: VIEWS.includes(h) ? h : 'inicio' };
-  }
-
-  function updateTop() {
-    const onHome = current === 'inicio';
-    top.classList.toggle('show', !onHome || scrollY > 160);
-  }
-
-  function show(view, target, first) {
-    const changed = view !== current;
-    if (changed) {
-      VIEWS.forEach(v => { $('#v-' + v).hidden = v !== view; });
-      current = view;
-      document.body.dataset.view = view;
-      document.title = $('#v-' + view).dataset.title;
-      $$('[data-nav]').forEach(a => {
-        if (a.dataset.nav === view) a.setAttribute('aria-current', 'page');
-        else a.removeAttribute('aria-current');
-      });
-      const el = $('#v-' + view);
-      el.classList.remove('enter');
-      void el.offsetWidth;
-      el.classList.add('enter');
-    }
-    closeMenu();
-    if (target) {
-      requestAnimationFrame(() => $(target).scrollIntoView({ behavior: reduce || changed ? 'auto' : 'smooth' }));
-    } else if (changed || !first) {
-      scrollTo({ top: 0, behavior: 'auto' });
-    }
-    if (changed && !first && !target) {
-      const h2 = $('#v-' + view + ' h2[tabindex]');
-      if (h2) h2.focus({ preventScroll: true });
-    }
-    updateTop();
-  }
-
-  function onRoute(first) {
-    const r = routeFromHash();
-    show(r.view, r.target, first);
-  }
-  addEventListener('hashchange', () => onRoute(false));
-  addEventListener('scroll', updateTop, { passive: true });
-
-  // Enlace "Confirmar" estando ya en el inicio: el hash no cambia, hay que desplazar a mano
-  document.addEventListener('click', e => {
-    const a = e.target.closest('a[href]');
-    if (!a) return;
-    if (a.hasAttribute('data-scroll')) {
-      e.preventDefault();
-      $(a.getAttribute('href')).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-    } else if (a.getAttribute('href') === location.hash && a.getAttribute('href').startsWith('#/')) {
-      onRoute(false);
-    }
-  });
-
-  // ---------- Menú móvil ----------
-  const burger = $('#burger');
-  function closeMenu() {
-    document.body.classList.remove('menu-open');
-    burger.setAttribute('aria-expanded', 'false');
-    burger.setAttribute('aria-label', 'Abrir menú');
-  }
-  burger.addEventListener('click', () => {
-    const open = document.body.classList.toggle('menu-open');
-    burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-  });
-  $('#scrim').addEventListener('click', closeMenu);
-  addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-
-  onRoute(true);
 })();
