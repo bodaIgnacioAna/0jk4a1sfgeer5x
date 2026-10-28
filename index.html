@@ -18,137 +18,182 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/GreatVibes-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/nombres.png" as="image">
   <link rel="stylesheet" href="style.css">
   <script>document.documentElement.classList.add('js')</script>
 </head>
-<body>
-  <a class="skip" href="#celebracion">Saltar al contenido</a>
-  <canvas id="nieve" aria-hidden="true"></canvas>
+<body data-view="inicio">
+  <a class="skip" href="#contenido">Saltar al contenido</a>
 
-  <header class="nav" id="nav">
-    <a class="nav-logo" href="#inicio" aria-label="Inicio">I &amp; A</a>
-    <nav aria-label="Principal">
-      <a href="#celebracion">Celebración</a>
-      <a href="#horario">Horario</a>
-      <a href="#autobus">Autobús</a>
-      <a href="#alojamiento">Alojamiento</a>
-      <a href="#confirmar" class="nav-cta">Confirmar</a>
+  <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="side"><span></span></button>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- Menú lateral -->
+  <aside class="side" id="side">
+    <a class="side-logo" href="#/" aria-label="Inicio"><img src="assets/nombres.png" alt="Ignacio y Ana"></a>
+    <nav aria-label="Secciones">
+      <a href="#/" data-nav="inicio">Inicio</a>
+      <a href="#/celebracion" data-nav="celebracion">Celebración</a>
+      <a href="#/horario" data-nav="horario">Horario</a>
+      <a href="#/autobus" data-nav="autobus">Autobús</a>
+      <a href="#/alojamiento" data-nav="alojamiento">Alojamiento</a>
     </nav>
+    <a class="btn btn-solid side-cta" href="#/confirmar">Confirmar asistencia</a>
+    <p class="side-date">4 · 12 · 2027</p>
+  </aside>
+
+  <!-- Barra superior: en el inicio solo aparece al bajar -->
+  <header class="top" id="top" aria-label="Ignacio y Ana, 4 de diciembre de 2027">
+    <img src="assets/nombres.png" alt="Ignacio y Ana">
+    <span class="top-date">4 de diciembre de 2027</span>
+    <a class="top-cta" href="#/confirmar">Confirmar</a>
   </header>
 
-  <main>
-    <section class="hero" id="inicio">
-      <div class="hero-inner">
-        <p class="eyebrow reveal">Nos casamos</p>
-        <h1 class="reveal"><span>Ignacio</span> <i>y</i> <span>Ana</span></h1>
-        <p class="hero-date reveal">4 de diciembre de 2027</p>
-        <p class="hero-place reveal">Encinas Reales · Lucena</p>
+  <main id="contenido">
 
-        <div class="countdown reveal" id="countdown" aria-live="off">
-          <div><b id="cd-d">--</b><span>días</span></div>
-          <div><b id="cd-h">--</b><span>horas</span></div>
-          <div><b id="cd-m">--</b><span>minutos</span></div>
-          <div><b id="cd-s">--</b><span>segundos</span></div>
+    <!-- INICIO -->
+    <div class="view" id="v-inicio" data-title="Ignacio y Ana · 4 de diciembre de 2027">
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="eyebrow reveal">Nos casamos</p>
+          <h1 class="reveal"><img src="assets/nombres.png" alt="Ignacio y Ana" width="737" height="144"></h1>
+          <p class="hero-date reveal"><img src="assets/fecha.png" alt="4 de diciembre de 2027" width="635" height="60"></p>
+          <p class="hero-place reveal">Encinas Reales · Lucena</p>
+
+          <div class="countdown reveal" id="countdown">
+            <div><b id="cd-d">--</b><span>días</span></div>
+            <div><b id="cd-h">--</b><span>horas</span></div>
+            <div><b id="cd-m">--</b><span>minutos</span></div>
+            <div><b id="cd-s">--</b><span>segundos</span></div>
+          </div>
+          <p class="countdown-end" id="cd-end" hidden></p>
         </div>
-        <p class="countdown-end" id="cd-end" hidden></p>
-      </div>
+        <img class="rama rama-izq" src="assets/rama-izq.webp" alt="" aria-hidden="true">
+        <img class="rama rama-der" src="assets/rama-der.webp" alt="" aria-hidden="true">
+        <a class="scroll-hint" href="#rsvp-block" data-scroll aria-label="Bajar">↓</a>
+      </section>
+
+      <section class="section alt" id="rsvp-block">
+        <div class="wrap narrow">
+          <h2 class="reveal">Confirma tu asistencia</h2>
+          <p class="lead reveal">Nos hará muy felices contar con vosotros. Rellenad el formulario con los datos de todos los que venís.</p>
+          <ul class="checks reveal">
+            <li>Quién viene: añadid a cada persona que os acompaña, niños incluidos.</li>
+            <li>Alergias, intolerancias o restricciones alimentarias.</li>
+            <li>Si necesitáis plaza en el autobús.</li>
+          </ul>
+          <p class="reveal"><a class="btn btn-solid btn-big" id="rsvp" href="#rsvp-block" target="_blank" rel="noopener noreferrer">Abrir formulario</a></p>
+          <p class="note reveal" id="rsvp-note" hidden>El formulario estará disponible muy pronto.</p>
+          <p class="tiny reveal">Los datos del formulario se usan solo para organizar la boda (comensales, menús y transporte).</p>
+        </div>
+      </section>
+
+      <section class="section" id="explora">
+        <div class="wrap">
+          <h2 class="reveal">Toda la información</h2>
+          <div class="links">
+            <a class="link reveal" href="#/celebracion"><b>Celebración</b><span>Ceremonia, lugares y mapas</span><i>→</i></a>
+            <a class="link reveal" href="#/horario"><b>Horario</b><span>El programa del día, hora a hora</span><i>→</i></a>
+            <a class="link reveal" href="#/autobus"><b>Autobús</b><span>Salidas de ida y vuelta</span><i>→</i></a>
+            <a class="link reveal" href="#/alojamiento"><b>Alojamiento</b><span>Dónde pasar la noche</span><i>→</i></a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CELEBRACIÓN -->
+    <div class="view" id="v-celebracion" data-title="Celebración · Ignacio y Ana" hidden>
+      <section class="section">
+        <div class="wrap">
+          <h2 class="reveal" tabindex="-1">La celebración</h2>
+          <p class="lead reveal">Con el corazón lleno de alegría, nos daremos el «sí» y queremos que estéis a nuestro lado.</p>
+
+          <div class="cards">
+            <article class="card reveal">
+              <img src="assets/ico-iglesia.png" alt="" class="card-ico">
+              <h3>Ceremonia religiosa</h3>
+              <p class="when">12:00 h</p>
+              <p>Parroquia Ntra. Sra. de la Expectación</p>
+              <p class="muted">Calle Iglesia, 28D<br>14913 Encinas Reales, Córdoba</p>
+              <iframe class="map" title="Mapa: Parroquia Ntra. Sra. de la Expectación, Encinas Reales" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+                src="https://www.google.com/maps?q=Calle+Iglesia+28D,+14913+Encinas+Reales,+C%C3%B3rdoba&amp;z=17&amp;hl=es&amp;output=embed"></iframe>
+              <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Calle+Iglesia+28D+14913+Encinas+Reales+C%C3%B3rdoba" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
+            </article>
+
+            <article class="card reveal">
+              <img src="assets/ico-copa.png" alt="" class="card-ico">
+              <h3>Copa, banquete y fiesta</h3>
+              <p class="when">Desde las 14:00 h</p>
+              <p>Jardines Palacio de la Dehesa</p>
+              <p class="muted">Lucena, Córdoba</p>
+              <iframe class="map" title="Mapa: Jardines Palacio de la Dehesa, Lucena" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+                src="https://www.google.com/maps?q=Jardines+Palacio+de+la+Dehesa,+Lucena&amp;ll=37.3923339,-4.5179586&amp;z=16&amp;hl=es&amp;output=embed"></iframe>
+              <a class="btn btn-line" href="https://maps.app.goo.gl/LUZSePQ1FqUzciU16" target="_blank" rel="noopener noreferrer">Abrir en Google Maps</a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- HORARIO -->
+    <div class="view" id="v-horario" data-title="Horario · Ignacio y Ana" hidden>
+      <section class="section">
+        <div class="wrap">
+          <h2 class="reveal" tabindex="-1">Horario</h2>
+          <ol class="tl">
+            <li><img src="assets/ico-iglesia.png" alt=""><time>12:00 h</time><p>Ceremonia religiosa<br>Parroquia Ntra. Sra. de la Expectación</p></li>
+            <li><img src="assets/ico-bus.png" alt=""><time>13:30 h</time><p>Salida del autobús a los Jardines Palacio de la Dehesa desde la parroquia</p></li>
+            <li><img src="assets/ico-copa.png" alt=""><time>14:00 h</time><p>Copa de bienvenida</p></li>
+            <li><img src="assets/ico-almuerzo.png" alt=""><time>15:30 h</time><p>Almuerzo</p></li>
+            <li><img src="assets/ico-fiesta.png" alt=""><time>18:30 h</time><p>Barra libre y fiesta</p></li>
+            <li><img src="assets/ico-bus.png" alt=""><time>21:30 h</time><p>Salida del primer autobús a Encinas Reales con parada en Lucena</p></li>
+            <li><img src="assets/ico-recena.png" alt=""><time>22:00 h</time><p>Recena</p></li>
+            <li><img src="assets/ico-bus.png" alt=""><time>00:30 h</time><p>Salida del segundo autobús a Encinas Reales con parada en Lucena</p></li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <!-- AUTOBÚS -->
+    <div class="view" id="v-autobus" data-title="Autobús · Ignacio y Ana" hidden>
+      <section class="section">
+        <div class="wrap narrow">
+          <h2 class="reveal" tabindex="-1">Autobús</h2>
+          <p class="lead reveal">Para comodidad de los invitados, habrá servicio de autobús.</p>
+          <ul class="bus reveal">
+            <li><b>13:30 h</b> Desde la parroquia de Encinas Reales a los Jardines Palacio de la Dehesa.</li>
+            <li><b>21:30 h</b> Primer autobús de vuelta a Encinas Reales, con parada en Lucena.</li>
+            <li><b>00:30 h</b> Segundo autobús de vuelta a Encinas Reales, con parada en Lucena.</li>
+          </ul>
+          <p class="note reveal">Se ruega confirmación para reservar la plaza. Podréis indicarlo en el formulario de asistencia.</p>
+          <p class="reveal"><a class="btn btn-line" href="#/confirmar">Ir a confirmar asistencia</a></p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ALOJAMIENTO -->
+    <div class="view" id="v-alojamiento" data-title="Alojamiento · Ignacio y Ana" hidden>
+      <section class="section">
+        <div class="wrap narrow">
+          <h2 class="reveal" tabindex="-1">Alojamiento</h2>
+          <p class="lead reveal">Os dejamos algunas opciones para pasar la noche cerca de la celebración.</p>
+          <article class="card card-wide reveal">
+            <h3>Hotel Los Bronces</h3>
+            <p class="muted">Pronto añadiremos aquí un código de descuento para los invitados.</p>
+            <a class="btn btn-line" href="https://maps.app.goo.gl/DQZHraJBQjx1F1tT9" target="_blank" rel="noopener noreferrer">Ver en el mapa</a>
+          </article>
+          <p class="note reveal">Iremos añadiendo más opciones.</p>
+        </div>
+      </section>
+    </div>
+
+    <footer class="foot">
+      <img class="foot-script" src="assets/esperamos.png" alt="Os esperamos" width="399" height="84">
+      <p>Ignacio y Ana · 4 de diciembre de 2027</p>
       <img class="rama rama-izq" src="assets/rama-izq.webp" alt="" aria-hidden="true">
       <img class="rama rama-der" src="assets/rama-der.webp" alt="" aria-hidden="true">
-      <a class="scroll-hint" href="#celebracion" aria-label="Bajar">↓</a>
-    </section>
-
-    <section class="section" id="celebracion">
-      <div class="wrap">
-        <h2 class="reveal">La celebración</h2>
-        <p class="lead reveal">Con el corazón lleno de alegría, nos daremos el «sí» y queremos que estéis a nuestro lado.</p>
-
-        <div class="cards">
-          <article class="card reveal">
-            <img src="assets/ico-iglesia.png" alt="" class="card-ico">
-            <h3>Ceremonia religiosa</h3>
-            <p class="when">12:00 h</p>
-            <p>Parroquia Ntra. Sra. de la Expectación</p>
-            <p class="muted">Calle Iglesia, 28D<br>14913 Encinas Reales, Córdoba</p>
-            <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query=Parroquia+Nuestra+Se%C3%B1ora+de+la+Expectaci%C3%B3n+Calle+Iglesia+28D+14913+Encinas+Reales" target="_blank" rel="noopener noreferrer">Ver en el mapa</a>
-          </article>
-
-          <article class="card reveal">
-            <img src="assets/ico-almuerzo.png" alt="" class="card-ico">
-            <h3>Banquete y fiesta</h3>
-            <p class="when">Desde las 14:00 h</p>
-            <p>Jardines Palacio de la Dehesa</p>
-            <p class="muted">Lucena, Córdoba</p>
-            <a class="btn btn-line" href="https://maps.app.goo.gl/LUZSePQ1FqUzciU16" target="_blank" rel="noopener noreferrer">Ver en el mapa</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="horario">
-      <div class="wrap">
-        <h2 class="reveal">Horario</h2>
-        <ol class="tl">
-          <li class="reveal"><img src="assets/ico-iglesia.png" alt=""><time>12:00 h</time><p>Ceremonia religiosa<br>Parroquia Ntra. Sra. de la Expectación</p></li>
-          <li class="reveal"><img src="assets/ico-bus.png" alt=""><time>13:30 h</time><p>Salida del autobús a los Jardines Palacio de la Dehesa desde la parroquia</p></li>
-          <li class="reveal"><img src="assets/ico-copa.png" alt=""><time>14:00 h</time><p>Copa de bienvenida</p></li>
-          <li class="reveal"><img src="assets/ico-almuerzo.png" alt=""><time>15:30 h</time><p>Almuerzo</p></li>
-          <li class="reveal"><img src="assets/ico-fiesta.png" alt=""><time>18:30 h</time><p>Barra libre y fiesta</p></li>
-          <li class="reveal"><img src="assets/ico-bus.png" alt=""><time>21:30 h</time><p>Salida del primer autobús a Encinas Reales con parada en Lucena</p></li>
-          <li class="reveal"><img src="assets/ico-recena.png" alt=""><time>22:00 h</time><p>Recena</p></li>
-          <li class="reveal"><img src="assets/ico-bus.png" alt=""><time>00:30 h</time><p>Salida del segundo autobús a Encinas Reales con parada en Lucena</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="section" id="autobus">
-      <div class="wrap narrow">
-        <h2 class="reveal">Autobús</h2>
-        <p class="lead reveal">Para comodidad de los invitados, habrá servicio de autobús.</p>
-        <ul class="bus reveal">
-          <li><b>13:30 h</b> Desde la parroquia de Encinas Reales a los Jardines Palacio de la Dehesa.</li>
-          <li><b>21:30 h</b> Primer autobús de vuelta a Encinas Reales, con parada en Lucena.</li>
-          <li><b>00:30 h</b> Segundo autobús de vuelta a Encinas Reales, con parada en Lucena.</li>
-        </ul>
-        <p class="note reveal">Se ruega confirmación para reservar la plaza. Podréis indicarlo en el formulario de asistencia.</p>
-      </div>
-    </section>
-
-    <section class="section alt" id="alojamiento">
-      <div class="wrap narrow">
-        <h2 class="reveal">Alojamiento</h2>
-        <p class="lead reveal">Os dejamos algunas opciones para pasar la noche cerca de la celebración.</p>
-        <article class="card card-wide reveal">
-          <h3>Hotel Los Bronces</h3>
-          <p class="muted">Pronto añadiremos aquí un código de descuento para los invitados.</p>
-          <a class="btn btn-line" href="https://maps.app.goo.gl/DQZHraJBQjx1F1tT9" target="_blank" rel="noopener noreferrer">Ver en el mapa</a>
-        </article>
-        <p class="note reveal">Iremos añadiendo más opciones.</p>
-      </div>
-    </section>
-
-    <section class="section" id="confirmar">
-      <div class="wrap narrow">
-        <h2 class="reveal">Confirma tu asistencia</h2>
-        <p class="lead reveal">Nos hará muy felices contar con vosotros. Rellenad el formulario con los datos de todos los que venís.</p>
-        <ul class="checks reveal">
-          <li>Quién viene: añadid a cada persona que os acompaña, niños incluidos.</li>
-          <li>Alergias, intolerancias o restricciones alimentarias.</li>
-          <li>Si necesitáis plaza en el autobús.</li>
-        </ul>
-        <p class="reveal"><a class="btn btn-solid" id="rsvp" href="#confirmar" target="_blank" rel="noopener noreferrer">Abrir formulario</a></p>
-        <p class="note reveal" id="rsvp-note" hidden>El formulario estará disponible muy pronto.</p>
-        <p class="tiny reveal">Los datos del formulario se usan solo para organizar la boda (comensales, menús y transporte).</p>
-      </div>
-    </section>
+    </footer>
   </main>
-
-  <footer class="foot">
-    <p class="script">Os esperamos</p>
-    <p>Ignacio y Ana · 4 de diciembre de 2027</p>
-    <img class="rama rama-izq" src="assets/rama-izq.webp" alt="" aria-hidden="true">
-    <img class="rama rama-der" src="assets/rama-der.webp" alt="" aria-hidden="true">
-  </footer>
 
   <script src="script.js"></script>
 </body>
